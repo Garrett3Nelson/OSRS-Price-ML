@@ -1,15 +1,18 @@
 import sqlite3
 from config import DB_NAME
-from wikiAPI import pull_latest, pull_mapping, pull_avg
+from wikiAPI import pull_mapping, pull_avg
+
 
 def setup_connection():
     global con, cur
     con = sqlite3.connect(DB_NAME)
     cur = con.cursor()
 
+
 def create_tables():
     cur.execute("CREATE TABLE item_list (id integer, name text, member integer, trade_lim integer)")
-    cur.execute("CREATE TABLE timeseries (id integer, timestamp integer, avgHigh integer, avgLow integer, highVol integer, lowVol integer)")
+    cur.execute("CREATE TABLE timeseries (id integer, timestamp integer, avgHigh integer, avgLow integer, "
+                "highVol integer, lowVol integer)")
     con.commit()
 
 
@@ -22,7 +25,7 @@ def populate_items():
             continue
 
         if str(line['id']) not in volumes.keys():
-        #    print('{} not in volume data'.format(line['id']))
+            print('{} not in volume data'.format(line['id']))
             continue
 
         item_volume = volumes[str(line['id'])]

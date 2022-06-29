@@ -3,14 +3,15 @@ import config
 
 BASE_URL = 'https://prices.runescape.wiki/api/v1/osrs/'
 
-def api_request(request_type : str, itemID : int = 0):
+
+def api_request(request_type: str, item_id: int = 0):
     url_options = {
-        'timeseries' : 'timeseries?timestep=5m&id={}'.format(itemID),
-        'timeseries_1h' : 'timeseries?timestep=1h&id={}'.format(itemID),
-        'latest' : 'latest',
-        'mapping' : 'mapping',
-        '5m' : '5m',
-        '1h' : '1h'
+        'timeseries': 'timeseries?timestep=5m&id={}'.format(item_id),
+        'timeseries_1h': 'timeseries?timestep=1h&id={}'.format(item_id),
+        'latest': 'latest',
+        'mapping': 'mapping',
+        '5m': '5m',
+        '1h': '1h'
     }
 
     request_url = url_options[request_type]
@@ -42,8 +43,8 @@ def pull_mapping():
     return response.json()
 
 
-def pull_timeseries(itemID):
-    response = api_request('timeseries', itemID)
+def pull_timeseries(item_id: int):
+    response = api_request('timeseries', item_id)
 
     if response.status_code != 200:
         raise requests.exceptions.RequestException
@@ -51,7 +52,7 @@ def pull_timeseries(itemID):
     return response.json()
 
 
-def pull_avg(interval : str):
+def pull_avg(interval: str):
     if interval not in ['1h', '5m']:
         print('Incorrect argument')
         return
