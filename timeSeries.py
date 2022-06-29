@@ -36,5 +36,4 @@ def parse_time_data(itemID : int, data : dict):
 if __name__ == '__main__':
     for row in cur.execute("SELECT id FROM item_list"):
         parse_time_data(row[0], pull_timeseries(row[0]))
-        #print(row[0])
     con.close()

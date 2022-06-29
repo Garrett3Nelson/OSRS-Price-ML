@@ -41,7 +41,7 @@ def populate_items():
 
 if __name__ == "__main__":
     setup_connection()
-    #create_tables()
+    create_tables()
     populate_items()
     con.close()
 else:
