@@ -34,6 +34,9 @@ def parse_time_data(itemID : int, data : dict):
         con.commit()
 
 if __name__ == '__main__':
-    for row in cur.execute("SELECT id FROM item_list"):
+    rows = cur.execute('SELECT id FROM item_list').fetchall()
+    print('Timeseries for {} items'.format(len(rows)))
+    for row in rows:
+    #   print('Parsing for {}'.format(row[0]))
         parse_time_data(row[0], pull_timeseries(row[0]))
     con.close()
