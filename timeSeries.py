@@ -59,5 +59,8 @@ if __name__ == '__main__':
     for row in rows:
         # print('Parsing for {}'.format(row[0]))
         new_data = snip_data(last_timestamps[row[0]], pull_timeseries(row[0]))
+        if len(new_data) == 0 or new_data is None:
+            continue
+
         parse_time_data(row[0], new_data)
     con.close()
