@@ -22,14 +22,11 @@ def populate_items():
             continue
 
         if str(line['id']) not in volumes.keys():
-            print('{} not in volume data'.format(line['id']))
+        #    print('{} not in volume data'.format(line['id']))
             continue
 
         item_volume = volumes[str(line['id'])]
         trade_volume = int(item_volume['lowPriceVolume']) + int(item_volume['highPriceVolume'])
-
-        print(line)
-        print(trade_volume)
 
         if trade_volume < line['limit']:
             print('{} does not have enough volume to add'.format(line['name']))
