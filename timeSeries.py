@@ -1,5 +1,6 @@
 from database import cur, con
 from wikiAPI import pull_timeseries
+from datetime import datetime
 
 
 def parse_time_data(item_id: int, data: list):
@@ -52,6 +53,7 @@ def snip_data(last_timestamp: int, data: dict):
 
 
 if __name__ == '__main__':
+    print("({}) Starting timeseries script".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     last_timestamps = get_last_timestamps()
     rows = cur.execute('SELECT id FROM item_list').fetchall()
     # print('Timeseries for {} items'.format(len(rows)))
@@ -59,7 +61,7 @@ if __name__ == '__main__':
     for row in rows:
         # print('Parsing for {}'.format(row[0]))
         new_data = snip_data(last_timestamps[row[0]], pull_timeseries(row[0]))
-        if len(new_data) == 0 or new_data is None:
+        if new_data is None:
             continue
 
         parse_time_data(row[0], new_data)
