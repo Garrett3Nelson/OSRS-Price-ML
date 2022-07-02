@@ -2,3 +2,4 @@
 config.py
 /__pycache__
 osrsData.db
+/.idea

@@ -66,3 +66,4 @@ if __name__ == '__main__':
 
         parse_time_data(row[0], new_data)
     con.close()
+    print("({}) Completed timeseries script".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
