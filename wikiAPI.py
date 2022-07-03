@@ -1,7 +1,7 @@
+from bs4 import BeautifulSoup
 import requests
 import config
 
-from bs4 import BeautifulSoup
 BASE_URL = 'https://prices.runescape.wiki/api/v1/osrs/'
 
 
@@ -159,7 +159,7 @@ def pull_index_page(index_page: str):
 
 
 def parse_index_page(index_page):  # Pulls item names from the indices
-    soup = BeautifulSoup(index_page.text, 'lxml')
+    soup = BeautifulSoup(index_page.text, 'html.parser')
 
     item_names = []
     tables = soup.find_all('table')  # all rows are indicated with <tr> tags
@@ -171,10 +171,11 @@ def parse_index_page(index_page):  # Pulls item names from the indices
 
                 if columns is None:  # will be none if we're on a header
                     continue
-
-                if len(columns) < 2:  # some hidden <tr> segments are just the one column
+                if len(columns) == 0:
                     continue
-
-                item_names.append(columns[1].get_text())  # The first column is an icon, second is the name
+                elif len(columns) == 2:  # Potions table is 2 columns (name, coins)
+                    item_names.append(columns[0].get_text().strip())  # The first column is the name
+                else:
+                    item_names.append(columns[1].get_text().strip())  # The first column is an icon, second is the name
 
     return item_names
