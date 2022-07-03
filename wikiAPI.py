@@ -52,7 +52,7 @@ def pull_timeseries(item_id: int, interval: str = '5m'):
 
 
 def pull_avg(interval: str):
-    response = api_request(interval)
+    response = api_request('prices', interval)
 
     if response.status_code != 200:
         raise requests.exceptions.RequestException
@@ -145,6 +145,8 @@ def index_page_list():
 
 def pull_index_page(index_page: str):
     request_options = index_page_list()
+
+    assert index_page in request_options.keys()
 
     request_url = request_options[index_page]
     url = 'https://oldschool.runescape.wiki/w/RuneScape:Grand_Exchange_Market_Watch/' + request_url + '#a=30'
