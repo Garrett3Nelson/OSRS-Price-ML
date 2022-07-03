@@ -171,8 +171,9 @@ def parse_index_page(index_page):  # Pulls item names from the indices
 
                 if columns is None:  # will be none if we're on a header
                     continue
-                if len(columns) == 0:
-                    continue
+
+                if len(columns) < 2:  # 0 are 'Other Categories' at the bottom of the page
+                    continue          # 1 are 'Adding an item to Grand Exchange Market Watch Page'
                 elif len(columns) == 2:  # Potions table is 2 columns (name, coins)
                     item_names.append(columns[0].get_text().strip())  # The first column is the name
                 else:
