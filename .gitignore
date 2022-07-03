@@ -3,4 +3,5 @@ config.py
 /__pycache__
 osrsData.db
 /.idea
-/Data Exploring.ipynb
+Data Exploring.ipynb
+/.ipynb_checkpoints/

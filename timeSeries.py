@@ -60,10 +60,15 @@ if __name__ == '__main__':
 
     for row in rows:
         # print('Parsing for {}'.format(row[0]))
-        new_data = snip_data(last_timestamps[row[0]], pull_timeseries(row[0]))
+        if row[0] in last_timestamps.keys():
+            new_data = snip_data(last_timestamps[row[0]], pull_timeseries(row[0]))
+        else:
+            data = pull_timeseries(row[0])
+            new_data = sorted(data['data'], key=lambda i: i['timestamp'])
+
         if new_data is None:
             continue
-
         parse_time_data(row[0], new_data)
+
     con.close()
     print("({}) Completed timeseries script".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
